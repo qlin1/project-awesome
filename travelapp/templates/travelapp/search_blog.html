@@ -1,0 +1,54 @@
+{% extends "travelapp/base_blog.html" %}
+
+{% block title %}blog result{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<a class="col l1" href="{% url 'blog' %}">Back</a>
+</div>
+<!-- search bar -->
+<div class="row">
+	<form class="col l12" action="{% url 'search' %}" method="Post">
+		<div class="row">
+			<div class="input-field col l5 offset-l2">
+        <i class="material-icons prefix">search</i>
+        <input id="icon_prefix" type="text" class="validate" name="key">
+        <label for="icon_prefix">search for the content of blog</label>
+      </div>
+      <div class="input-field col l2 offset-l1">
+		  	<button class="btn waves-effect waves-light green darken-4" type="submit" name="action">Search</button>
+	  	</div>
+			{% csrf_token %}
+		</div>
+	</form>
+</div>
+<!-- search result -->
+<div class="row">
+{% for blog in blogs %}
+	<div class="col l4 offset-l1">
+	  <div class="card blue-grey lighten-5">
+	  	<div class="card-action">
+	      <a href="{% url 'profile' blog.profile.id %}"><img src="{% url 'icon' blog.profile.id %}" class=" responsive-img" width= "50px"></a>
+	      <span>{{blog.user.username}}</span>
+	      <span>posted on {{blog.time}}</span>
+	    </div>
+	    <div class="card-content">
+	      <span class="card-title">{{blog.title}}</span>
+	      <p>{{blog.content}}</p>
+	    </div>
+	  </div>
+	</div>
+{% endfor %}
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

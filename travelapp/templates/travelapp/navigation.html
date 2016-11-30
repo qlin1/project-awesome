@@ -1,0 +1,26 @@
+{% extends "travelapp/base_plan.html" %}
+
+{% block title %}plan date{% endblock %}
+
+{% block content %}
+  
+<div class="row">
+  <form class="col s12" action="{% url 'index' %}" method="get">
+    <div class="row">
+      <div class="input-field col l4 offset-l3">
+        <input placeholder="Plan Name" id="plan_name" type="text" class="validate" name="name">
+        <label for="plan_name">Name for plan</label>
+      </div>
+      <div class="input-field col l4 offset-l3">
+        <input placeholder="Date" id="plan_date" type="date" class="datepicker" name="date">
+        <label for="plan_date">Chooose a date for your plan</label>
+      </div>
+      <div class="input-field col l2">
+        <button class="btn waves-effect waves-light green darken-4" type="submit" name="action">make a plan</button>
+      </div>
+    </div>
+  {% csrf_token %}
+  </form>
+</div>
+
+{% endblock %}

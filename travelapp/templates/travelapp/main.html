@@ -1,0 +1,65 @@
+{% extends "travelapp/base_plan.html" %}
+
+{% block title %}make a plan{% endblock %}
+	
+{% block content %}
+	<!-- to search yelp api -->
+<div class="row center">
+<form class="col l12" action="{% url 'index' %}"method="post">
+  <div class="row">
+    <div class="input-field col l4 offset-l1">
+      <div class="fieldWrapper">
+      <label for="{{ form.place.id_for_label }}">Things to do:</label>
+      {{ form.place }}
+      </div>
+    </div>
+    <div class="input-field col l4 offset-l1">
+      <div class="fieldWrapper">
+      <label for="{{ form.city.id_for_label }}">City:</label>
+      {{ form.city }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col l2 offset-l9">
+  		<button class="btn waves-effect waves-light indigo" type="submit" name="action">Search</button>
+  	</div>
+  </div>
+  <input type="hidden" name="id" value="{{id}}">
+  {% csrf_token %}
+</form>
+</div>
+
+<div class="row center">
+{% for event in events %}
+  <div class="card horizontal col l6 offset-l3">
+    <div class="card-image">
+      <div id="logo">
+      <img src="{{event.img}}">
+      </div>
+    </div>
+    <div class="card-stacked">
+      <div class="card-content">
+        <p>plan to spend {{event.period}} at {{event.destination}} for {{event.activity}}</p>
+      </div>
+      <div class="card-action">
+        <a href="{{event.url}}">yelp link</a>
+        <a href="{% url 'delete_event' event.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+<!-- button -->
+<div class="row center">
+  <form class="col l12" action="{% url 'plan_result' %}" method="post">
+    <div class="input-field col l2 offset-l9">
+		  <button class="btn waves-effect waves-light green darken-4" type="submit" name="action">Let's go</button>
+	  </div>
+	  {% csrf_token %}
+  </form>
+</div>
+
+{% endblock %}
+

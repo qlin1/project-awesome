@@ -1,0 +1,81 @@
+{% extends "travelapp/base_pal.html" %}
+
+{% block title %}plan stream{% endblock %}
+
+{% block content %}
+<!-- right-left layout -->
+<div class="row">
+<!-- the plan content stays here -->
+  <div class="col l9">
+    <div class="row">
+    {% for plan in plans %}
+      <div class="col l7 offset-l3">
+        <div class="card hoverable">
+          <div class="card-content">
+            <span><a href="{% url 'profile' plan.owner.id %}"><img src="{% url 'icon' plan.owner.id %}" class="circle responsive-img" width= "50px"></a>{{plan.owner.username}} created a plan for {{plan.plan_date}}</span>
+          </div>
+          <div class="card-image">
+            <img src="http://img.timeinc.net/time/photoessays/2009/travel_guide_paris/paris_intro.jpg">
+          <span class="card-title">{{plan.name}}</span>
+          </div>
+          <div class="card-content">
+            <ol>
+            {% for event in plan.events.all %}
+              <li>plan to spend {{event.period}} at {{event.destination}} for {{event.activity}}</li>
+          {% empty %}
+            <ol>
+        <p>No event here</p>
+        {% endfor %}
+          </div>
+          <div class="card-action">
+        <!-- comment for the plan -->
+            {% for comment in plan.comments.all %}
+            <span><a href="{% url 'profile' comment.author_profile.id %}"><img src="{% url 'icon' comment.author_profile.id %}" class="responsive-img" width= "30px"></a> at {{comment.time}}</span><br>
+            <span>{{comment.author.username}} ----&nbsp;&quot;<strong>{{comment.content}}</strong>&quot;</span>
+            <br>
+           {% empty %}
+            <p>Be the first to comment!</p>
+            {% endfor %}
+            <div class="row">
+            <form class="col l12" action="{% url 'comment' plan.id %}" method="post"> 
+              <!-- <table>
+                {{comment}}
+              </table> -->
+              <div class="input-field col l8">
+                <div class="fieldWrapper">
+                    {{ comment.content.errors }}
+                    <label for="{{ comment.content.id_for_label }}"></label>
+                    {{ comment.content }}
+                </div>
+              </div>
+              <div class="input-field col l2">
+                <button class="btn waves-effect waves-light green darken-4" type="submit" name="action">Comment</button>
+              </div>
+              {% csrf_token %}
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+<!-- the trend panel stays here -->
+  <div class="col l3">
+  <div class="row">
+    <div class="col l12">
+      <div class="card-panel">
+        <span>Total users registered: {{num_user}}<br>
+        Total Plans posted:    {{num_plan}}<br>
+        Total Blogs posted:    {{num_blog}}<br>
+        </span>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</div>
+{% endblock %}
+
+
+

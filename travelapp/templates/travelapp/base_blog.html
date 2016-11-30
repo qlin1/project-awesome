@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}plan_related{% endblock %}</title>
+  <link href="{%static 'global.css'%}" rel="stylesheet">
+	<!--Import Google Icon Font-->
+  <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+</head>
+
+<body class="indigo lighten-5">
+<div class="page-flexbox-wrapper">
+<main>
+<!-- navi-bar -->
+<ul id="dropdown1" class="dropdown-content indigo">
+  <li><a href="{% url 'my_profile' %}" class="white-text">profile</a></li>
+  <li class="divider"></li>
+  <li><a href="{% url 'edit_profile' %}" class="white-text">edit</a></li>
+  <li class="divider"></li>
+  <li><a href="{% url 'logout' %}" class="white-text">log out</a></li>
+</ul>
+<nav>
+  <div class="nav-wrapper indigo">
+    <a href="#!" class="brand-logo">Globetrotter</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="{% url 'navigate' %}">travel planner</a></li>
+      <li><a href="{% url 'tour_pal' %}">tour pal</a></li>
+      <li class="active"><a href="{% url 'blog' %}">blogs</a></li>
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">account<i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- content -->
+<div id="content">
+  {% block content %}{% endblock %}
+</div>
+
+</main>
+<!-- footer -->
+<footer class="page-footer green darken-4">
+  <div class="footer-copyright indigo">
+    <div class="container">
+    © 2016 - In memory of Leonard Cohen
+    <!-- <img src="https://www.leonardcohen.com/wp-content/themes/leonardcohen/img/bg/header-mic.jpg"> -->
+    <a class="grey-text text-lighten-4 right " href="#!">contact us</a>
+    </div>
+  </div>
+</footer>
+</div>
+<div id="resource">
+    {% block resource %}
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+	<script src="/static/js/global.js" type="text/javascript"></script>
+	{% endblock %}
+</div>
+</body>
+</html>

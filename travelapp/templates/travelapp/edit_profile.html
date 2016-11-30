@@ -1,0 +1,83 @@
+{% extends 'travelapp/base_edit.html' %}
+{% block content %}
+
+<div class="row">
+<form class="col s12" method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+{{ form.non_field_errors }}
+  <div class="row">
+    <div class="input-field col l4 offset-l1">
+      <div class="fieldWrapper">
+			    {{ form.first_name.errors }}
+			    <label for="{{ form.first_name.id_for_label }}" placeholder="Placeholder" id="first_name" type="text" class="validate">First Name:</label>
+			    {{ form.first_name }}
+			</div>
+		</div>
+		<div class="input-field col l4 offset-l1">
+      <div class="fieldWrapper">
+			    {{ form.last_name.errors }}
+			    <label for="{{ form.last_name.id_for_label }}" placeholder="Placeholder" id="last_name" type="text" class="validate">Last Name:</label>
+			    {{ form.last_name }}
+			</div>
+		</div>
+
+		<div class="input-field col l4 offset-l1">
+      <div class="fieldWrapper">
+			    {{ form.age.errors }}
+			    <label for="{{ form.age.id_for_label }}" placeholder="Placeholder" id="age" type="text" class="validate">Age:</label>
+			    {{ form.age }}
+			</div>
+		</div>
+
+		<div class="input-field col l4 offset-l1">
+      <div class="fieldWrapper">
+			    {{ form.gender.errors }}
+			    <label for="{{ form.gender.id_for_label }}" placeholder="Placeholder" id="gender" type="text" class="validate">Gender:(male or female)</label>
+			    {{ form.gender }}
+			</div>
+		</div>
+
+		<div class="input-field col l4 offset-l1">
+      <div class="fieldWrapper">
+			    {{ form.region.errors }}
+			    <label for="{{ form.region.id_for_label }}" placeholder="Placeholder" id="region" type="text" class="validate">Region:</label>
+			    {{ form.region }}
+			</div>
+		</div>
+
+		<div class="input-field col l4 offset-l1">
+      <div class="fieldWrapper">
+			    {{ form.interest.errors }}
+			    <label for="{{ form.interest.id_for_label }}" placeholder="Placeholder" id="interest" type="text" class="validate">Interest:</label>
+			    {{ form.interest }}
+			</div>
+		</div>
+
+		<div class="input-field col l9 offset-l1">
+      <div class="fieldWrapper">
+			    {{ form.bio.errors }}
+			    <label for="{{ form.bio.id_for_label }}" placeholder="Placeholder" id="bio" type="text" class="validate">Biography:</label>
+			    {{ form.bio }}
+			</div>
+		</div>
+  </div>
+  <div class="row">
+
+    <div class="file-field input-field col l8 offset-l1">
+      <div class="btn">
+        <span>Upload a profile picture</span>
+        <input type="file">
+      </div>
+      <div class="file-path-wrapper">
+        {{ form.picture }}
+      </div>
+    </div>
+	
+  <!-- button -->
+	  <div class="input-field col l2 offset-l9">
+			  <button class="btn waves-effect waves-light green darken-4" type="submit" name="action">Save</button>
+		</div>
+	</div>
+  {% csrf_token %}
+</form>
+</div>
+{% endblock %}

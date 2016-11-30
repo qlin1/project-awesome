@@ -1,0 +1,50 @@
+{% extends "travelapp/base_2.html" %}
+
+{% block title %}welcome{% endblock %}
+
+{% block content %}
+
+<div class="parallax-container">
+    <div class="parallax"><img src="../../static/images/bg1.jpg"></div>
+  </div>
+  <div class="section white">
+    <div class="row container">
+      <h2 class="header">Globetrotters</h2>
+      <h4 class="grey-text text-darken-3 lighten-3">Fantastic travel plans! &amp; Here to find your tour pals.</h4>
+
+      <form class="col l12" method="post" action="{% url 'login' %}">
+        <div class="row">
+          {{ form.non_field_errors }}
+          <div class="input-field col l5 offset-l3">
+            <div class="fieldWrapper">
+              {{ form.username.errors }}
+              <label for="{{ form.username.id_for_label }}"></label>
+              {{ form.username }}
+            </div>
+          </div>
+          <div class="input-field col l5 offset-l3">
+            <div class="fieldWrapper">
+              {{ form.password.errors }}
+              <label for="{{ form.password.id_for_label }}"></label>
+              {{ form.password }}
+            </div>
+          </div>
+          <!-- button -->
+          <div class="input-field col l5 offset-l6">
+            <button class="btn waves-effect waves-light green darken-4" type="submit" name="action">Sign in</button>
+          </div>
+        </div>
+        <!-- next field may not be used -->
+        <input type="hidden" name="next" value="{{ next }}" />
+        {% csrf_token %}
+      </form>     
+      <div class="col l5 offset-l3">
+        <a href="{% url 'register' %}">Don't have an account? Register!</a>   
+      </div>	
+    </div>
+  </div>
+  <div class="parallax-container">
+    <div class="parallax"><img src="../../static/images/3.jpg"></div>
+  </div>
+
+{% endblock %}

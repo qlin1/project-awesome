@@ -1,0 +1,41 @@
+{% extends "travelapp/base_blog.html" %}
+
+{% block title %}new blog{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<a class="col l1" href="{% url 'blog' %}">Back</a>
+</div>
+
+<div class="row">
+  <form class="col l12" action="{% url 'new_blog' %}" method="Post">
+  	{{ form.non_field_errors }}
+    <div class="row">
+      <div class="input-field col s4 offset-l4">
+      	<div class="fieldWrapper">
+		      {{ form.subject.errors }}
+		      <label for="{{ form.title.id_for_label }}">Title:</label>
+		      {{ form.title }}
+		    </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6 offset-l3">
+      	<div class="fieldWrapper">
+		    {{ form.content.errors }}
+		    <label for="{{ form.content.id_for_label }}">Content:</label>
+		    {{ form.content }}
+		    </div>
+      </div>
+    </div>
+    <div class="input-field col l2 offset-l8">
+      <button class="btn waves-effect waves-light green darken-4" type="submit" name="action">Psot</button>
+    </div>
+      {% csrf_token %}
+  </form>
+</div>
+
+{% endblock %}
+
+

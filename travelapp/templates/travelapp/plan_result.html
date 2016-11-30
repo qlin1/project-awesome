@@ -1,0 +1,35 @@
+{% extends "travelapp/base_plan.html" %}
+
+{% block title %}travel plan{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col l4 offset-l4">
+    <h1>Trip plan:</h1><br>
+  </div>
+</div>
+<div class="row center">
+{% for event in events %}
+  <div class="card horizontal col l6 offset-l3">
+    <div class="card-image">
+      <div id="logo">
+      <img src="{{event.img}}">
+      </div>
+    </div>
+    <div class="card-stacked">
+      <div class="card-content">
+        <p>plan to spend {{event.period}} at {{event.destination}} for {{event.activity}}</p>
+      </div>
+      <div class="card-action">
+        <a href="{{event.url}}">yelp link</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+   <p>You haven't choose any event for this plan!</p>
+{% endfor %}
+</div>
+
+{% endblock %}
+

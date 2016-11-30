@@ -1,0 +1,73 @@
+{% extends "travelapp/base_plan.html" %}
+
+{% block title %}search result{% endblock %}
+
+{% block content %}
+<div class="row">
+	<a class="col l1" href="{% url 'index' %}">Back</a>
+</div>
+<!-- search result -->
+<div class="content">
+<div class="row">
+{% for food in foods %}
+<div class="col l4 offset-l1">
+  <div class="card sticky-action">
+	<div class="card-image">
+	  <div id="icon">
+	  <img class="activator reponsive-img" src="{{food.image_url}}" alt="img">
+	  </div>
+	</div>
+	<div class="card-content">
+	  <span class="card-title activator">{{food.name}}<i class="material-icons right">more_vert</i></span>
+	  
+	</div>
+	<div class="card-action">
+	  <div class="row">
+		<form action="{% url 'add' %}" method="post">
+		<!-- information needed to be submitted -->
+		<div class="input-field col l6">
+		<select name="period">
+		  <!-- <option value="" disabled selected>Choose time period</option> -->
+		  <option value="morning">morning</option>
+		  <option value="noon">noon</option>
+		  <option value="afternoon">afternoon</option>
+		  <option value="evening">evening</option>
+		  <option value="night">night</option>
+		</select>
+		</div>
+
+		<div class="input-field col l6">
+		<select name="activity">
+		  <!-- <option value="" disabled selected>Choose activity type</option> -->
+		  <option value="cuisine">cuisine</option>
+		  <option value="nature">nature</option>
+		  <option value="culture">culture</option>
+		  <option value="nightlife">nightlife</option>
+		</select>
+		</div>
+		<!-- <input type="text" name="id" value="{{id}}"> -->
+		<input type="hidden" name="id" value="{{id}}">
+		<input type="hidden" name="destination" value="{{food.name}}">
+		<input type="hidden" name="url" value="{{food.url}}">
+		<input type="hidden" name="img" value="{{food.image_url}}">
+		<div class="input-field col l2 offset-l8">
+		  <button class="btn waves-effect waves-light green darken-4" type="submit" name="action">Add</button>
+		</div>
+		{% csrf_token %}
+	    </form>
+	  </div>
+	</div>
+	<div class="card-reveal">
+	  <span class="card-title">detail information<i class="material-icons right">close</i></span>
+	  rating:{{food.rating}}<br>
+	  price:{{food.price}}<br>
+	  address:{{food.location.address1}}<br>
+	  Yelp url:<a href="{{food.url}}">{{food.name}}</a><br>
+	</div>
+  </div>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}
+

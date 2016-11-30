@@ -1,0 +1,158 @@
+{% extends "travelapp/base_profile.html" %}
+
+{% block title %}profile{% endblock %}
+
+{% block content %}
+<!-- profile basic information -->
+<div id="basic" class="col l12">
+  <div class="row">
+  <!-- basic user information -->
+    <div class="col l4 offset-l2">
+      <div class="card ">
+        <div class="card-image">
+          <img src="{% url 'icon' profile.id %}" class="responsive-img">
+          <span class="card-title">{{user.username}}</span>
+        </div>
+        <div class="card-content ">
+          <span>name: {{profile.first_name}}&nbsp;{{profile.last_name}}</span><br>
+          <span>age: {{profile.age}}</span><br>
+          <span>gender: {{profile.gender}}</span><br>
+          <span>region: {{profile.region}}</span><br>
+          <span>interest: {{profile.interest}}</span><br>
+          <span>biography: {{profile.bio}}</span>
+        </div>
+        <!-- for ratings -->
+        <!-- <div class="card-action">
+          <a href="#">This is a link</a>
+          <a href="#">This is a link</a>
+        </div> -->
+      </div>
+    </div>
+      <!-- review for this user -->
+    <div class="col l3 offset-l2"> 
+      <div class="card blue-grey lighten-5">
+        <div class="card-content">
+          <span class="card-title">Review for {{user.username}}</span><br>
+          {% for review in user.reviews.all %}
+           <a href="{% url 'profile' review.reviewer_profile.id %}"><img src="{% url 'icon' review.reviewer_profile.id %}" class="responsive-img" width= "30px"></a>says: {{review.content}}<br>
+           {% endfor %}
+        </div>
+        <div class="card-action">
+        <div class="row">
+            <form class="col l12" action="{% url 'review' user.id %}" method="post"> 
+              <!-- <table>
+               {{review}}
+              </table>
+              {% csrf_token %} -->
+          <!-- <input type="hidden" value={{user.id}}> -->
+              <!-- <input type="submit" value="Post"> -->
+              <div class="input-field col l8">
+                <div class="fieldWrapper">
+                    {{ review.content.errors }}
+                    <label for="{{ review.content.id_for_label }}"></label>
+                    {{ review.content }}
+                </div>
+              </div>
+              <div class="input-field col l2">
+                <button class="btn waves-effect waves-light green darken-4" type="submit" name="action"><i class="large material-icons">mode_edit</i></button>
+              </div>
+              {% csrf_token %}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <!-- user activity -->
+<div id="plans" class="col l12">
+  <div class="row">
+      <!-- user plan -->
+      {% for plan in plans %}
+      <div class="col l6 offset-l3">
+        <div class="card hoverable">
+          <div class="card-content">
+            <span><a href="{% url 'profile' plan.owner.id %}"><img src="{% url 'icon' plan.owner.id %}" class="circle responsive-img" width= "50px"></a>{{plan.owner.username}} created a plan for {{plan.plan_date}}</span>
+            <a href="{% url 'delete_plan' plan.id %}">Delete</a>
+          </div>
+          <div class="card-image">
+            <img src="http://img.timeinc.net/time/photoessays/2009/travel_guide_paris/paris_intro.jpg">
+          <span class="card-title">{{plan.name}}</span>
+          </div>
+          <div class="card-content">
+            <ol>
+            {% for event in plan.events.all %}
+              <li>plan to spend {{event.period}} at {{event.destination}} for {{event.activity}}</li>
+          {% empty %}
+            <ol>
+        <p>No event here</p>
+        {% endfor %}
+          </div>
+          <div class="card-action">
+        <!-- comment for the plan -->
+            {% for comment in plan.comments.all %}
+            <span><a href="{% url 'profile' comment.author_profile.id %}"><img src="{% url 'icon' comment.author_profile.id %}" class="responsive-img" width= "30px"></a> at {{comment.time}}</span><br>
+            <span>{{comment.author.username}} said &nbsp;&quot;<strong>{{comment.content}}</strong>&quot;</span>
+            <br>
+           {% empty %}
+            <p>Be the first to comment!</p>
+            {% endfor %}
+            <div class="row">
+            <form class="col l12" action="{% url 'comment' plan.id %}" method="post"> 
+              <!-- <table>
+                {{comment}}
+              </table> -->
+              <div class="input-field col l8">
+                <div class="fieldWrapper">
+                    {{ comment.content.errors }}
+                    <label for="{{ comment.content.id_for_label }}"></label>
+                    {{ comment.content }}
+                </div>
+              </div>
+              <div class="input-field col l2">
+                <button class="btn waves-effect waves-light green darken-4" type="submit" name="action">Comment</button>
+              </div>
+              {% csrf_token %}
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
+
+<div id="blogs" class="col l12">
+<!-- blog stream -->
+  <div class="row">
+  {% for blog in blogs %}
+    <div class="col l4 offset-l1">
+      <div class="card blue-grey lighten-5">
+        <div class="card-action">
+          <a href="{% url 'profile' blog.profile.id %}"><img src="{% url 'icon' blog.profile.id %}" class=" responsive-img" width= "50px"></a>
+          <!-- <span>{{blog.user.username}}</span> -->
+          <span>posted on {{blog.time}}</span>
+        </div>
+        <div class="card-content">
+          <span class="card-title">{{blog.title}}</span>
+          <h5>{{blog.content}}</h5>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
