@@ -5,11 +5,14 @@
 {% block content %}
 	<!-- to search yelp api -->
 <div class="row center">
+<div class="col l6 offset-l2">
+    <h3>Find a place you want to go</h3>
+</div>
 <form class="col l12" action="{% url 'index' %}"method="post">
   <div class="row">
     <div class="input-field col l4 offset-l1">
       <div class="fieldWrapper">
-      <label for="{{ form.place.id_for_label }}">Things to do:</label>
+      <label for="{{ form.place.id_for_label }}">Things to do: restaurants,hotels,bars...</label>
       {{ form.place }}
       </div>
     </div>

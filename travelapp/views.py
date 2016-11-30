@@ -43,11 +43,12 @@ def index(request):
 	if not form.is_valid():
 		return render(request, 'travelapp/main.html', context)
 	#get keyowrd and city for api use
-	keyword = form.cleaned_data['place']
+	keyword = str(form.cleaned_data['place'])
+	key = keyword.replace(" ", "")
 	city = form.cleaned_data['city']
 	# url = "https://api.yelp.com/v3/businesses/search?term=delis&location=abcdr3"
 	url = 'https://api.yelp.com/v3/businesses/search?'
-	query = 'term='+keyword+'&location='+city
+	query = 'term='+key+'&location='+city+'&limit=10'
 	final_url = url+query
 	req = urllib2.Request(final_url)
 	bearer_token = 'NaMZiXUy2KVRRqz48HE5M6muVGNYVqDuUdeCX-RRpYRZiBO1hSQSxFljQ9mJ8eszW176R2ElQE2_CBggic3bS2q8d77_UlBhsEWtIEG5dH5zQockdelRsXYRGmodWHYx'
@@ -278,13 +279,13 @@ def register(request):
 	# Just display the registration form if this is a GET request
 	if request.method == 'GET':
 		context['form'] = RegistrationForm()
-		return render(request, 'travelapp/register.html', context)
+		return render(request, 'travelapp/register2.html', context)
 
 	form = RegistrationForm(request.POST)
 	context['form'] = form
 	# Validates the form.
 	if not form.is_valid():
-		return render(request, 'travelapp/register.html', context)
+		return render(request, 'travelapp/register2.html', context)
 	# Creates the new user from the valid form data
 	new_user = User.objects.create_user(username=form.cleaned_data['username'], 
 	                                    password=form.cleaned_data['password1'],
